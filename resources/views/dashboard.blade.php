@@ -238,8 +238,36 @@
 
     <div id="pengumuman-content" class="content_informasi" style="display: none;">
         <!-- Konten Pengumuman -->
-        <h2>Pengumuman</h2>
-        <p>Ini adalah konten pengumuman...</p>
+        <?php foreach($announcement as $v_announcement) { ?>
+            <div class="row justify-content-center align-items-center">
+                <div class="col-md-4 text-center">
+                    <div class="circle">
+                        <?php 
+                            $timestamp = strtotime($v_announcement->created_at); 
+                            $day = date('d', $timestamp);
+                            $month = date('M', $timestamp);
+                            $years = date('Y', $timestamp);
+                        ?>
+                        <p><strong>{{ $day }}</strong></p>
+                        <p>{{ $month }}</p>
+                        <p>{{ $years }}</p>
+                    </div>
+                </div>
+                <div class="col-md-4 text-left">
+                    <label class="login-button">Berita</label><br><br>
+                    <h5>{{ $v_announcement->title }}</h5><br>
+                    <a href="#"><h7>Baca Selengkapnya</h7></a>
+                </div>
+                <div class="col-md-4 text-center">
+                    <img src="{{ asset($v_announcement->thumbnail) }}" style="width:100px">
+                </div>
+            </div>
+            <hr>
+        <?php } ?>
+        <br><br>
+        <center>
+            <a href=""><button class="btn btn-primary">Lihat Semua Artikel</button></a>
+        </center>
     </div>
 </section>
 

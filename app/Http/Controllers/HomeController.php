@@ -15,8 +15,9 @@ class HomeController extends Controller
         $pengumuman = Post::where('id_category', 2)->where('status', 'published')->get();
         $information = DB::table('information')->get();
         $post = DB::table('posts')->where('id_category', 1)->where('status', "published")->orderBy('id', 'asc')->limit(4)->get();
+        $announcement = DB::table('posts')->where('id_category', 2)->where('status', "published")->orderBy('id', 'asc')->limit(4)->get();
         
-        return view('dashboard', compact('berita', 'pengumuman', 'information', 'post'));
+        return view('dashboard', compact('berita', 'pengumuman', 'information', 'post', 'announcement'));
     }
 
     public function history(){
