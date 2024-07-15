@@ -26,14 +26,17 @@
         </div>
         <div class="offcanvas-body">
             <ul class="navbar-nav justify-content-center flex-grow-1 pe-3">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{ url('/admin') }}"><strong>Home</strong></a>
+            <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="{{ url('/admin') }}"><strong>Home</strong></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url('/admin/posts') }}"><strong>Post</strong></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/admin/notes') }}"><strong>Catatan</strong></a>
+                    <a class="nav-link active" href="{{ url('/admin/notes') }}"><strong>Catatan</strong></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('/admin/cms') }}"><strong>CMS</strong></a>
                 </li>
             </ul>
         </div>
@@ -46,11 +49,10 @@
     </nav>
 
 
-    <section>
-    <div class="jumbotron m-5"
-        style="background-color:white; border: 4px solid white; padding: 0.5rem; color:black; min-height: 80vh; min-height:90vh">
+    <div class="section2"><br><br><br>
         <h2 class="text-center m-3">{{ $note->title}}</h2>
 
+        <br><h4>Title</h4>
         @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
@@ -65,23 +67,18 @@
             @method('PUT')
             <div class="form-group">
                 <input type="text" class="form-control" id="title" name="title" value="{{ old('title', $note->title) }}">
-            </div>
+            </div><br>
+            <h4>Contents</h4>
             <div class="form-group">
                 <div id="editor-container" style="height: 300px;">{!! old('body', $note->body) !!}</div>
                 <input type="hidden" id="body" name="body" value="{{ old('body', $note->body) }}">
+            </div><br>
+            <div style="text-align:right">
+                <a class="btn btn-light btn-block" href="{{ route('admin.notes.index') }}">Back</a>
+                <button type="submit" class="btn btn-primary btn-block">Update</button>
             </div>
-            <div class="row mb-5">
-                <div class="col-sm-6 mt-2">
-                    <a class="btn btn-light btn-block" href="{{ route('admin.notes.index') }}">Back</a>
-                </div>
-                <div class="col-sm-6 mt-2">
-                    <button type="submit" class="btn btn-primary btn-block">Update</button>
-                </div>
         </form>
     </div>
-</div>
-</div>
-</section>
 
 <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
 <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>

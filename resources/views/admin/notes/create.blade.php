@@ -26,14 +26,17 @@
         </div>
         <div class="offcanvas-body">
             <ul class="navbar-nav justify-content-center flex-grow-1 pe-3">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{ url('/admin') }}"><strong>Home</strong></a>
+            <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="{{ url('/admin') }}"><strong>Home</strong></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url('/admin/posts') }}"><strong>Post</strong></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/admin/notes') }}"><strong>Catatan</strong></a>
+                    <a class="nav-link active" href="{{ url('/admin/notes') }}"><strong>Catatan</strong></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('/admin/cms') }}"><strong>CMS</strong></a>
                 </li>
             </ul>
         </div>
@@ -46,11 +49,10 @@
     </nav>
 
 
-    <section>
-    <div class="jumbotron m-5"
-        style="background-color:white; border: 4px solid white; padding: 0.5rem; color:black; min-height: 80vh; min-height:90vh">
-        <h1 class="my-4">Catatan Baru</h1>
+    <div class="section2">
+        <h1 class="my-4">Catatan Baru</h1><br>
 
+        <h4>Title</h4>
         @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
@@ -64,23 +66,21 @@
             @csrf
             <div class="form-group">
                 <input type="text" class="form-control" id="title" name="title" value="{{ old('title') }}">
-            </div>
+            </div><br>
+            <h4>Contents</h4>
             <div class="form-group">
                 <div id="editor-container" style="height: 300px;">{!! old('body') !!}</div>
                 <input type="hidden" id="body" name="body" value="{{ old('body') }}">
             </div>
             <div class="row mb-5">
                 <div class="col-sm-6 mt-2">
-                    <a class="btn btn-light btn-block" href="{{ route('admin.notes.index') }}">Back</a>
                 </div>
-                <div class="col-sm-6 mt-2">
+                <div style="text-align:right">
+                    <a class="btn btn-light btn-block" href="{{ route('admin.notes.index') }}">Back</a>
                     <button type="submit" class="btn btn-primary btn-block">Create</button>
                 </div>
         </form>
     </div>
-</div>
-</div>
-</section>
 
 <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
 <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Category;
+use DataTables;
 use Illuminate\Support\Str;
 
 class PostController extends Controller
@@ -16,8 +17,12 @@ class PostController extends Controller
      */
     public function index()
     {
+        return view('admin.posts.index');
+    }
+
+    public function dataPost(){
         $posts = Post::all();
-        return view('admin.posts.index', compact('posts'));
+        return DataTables::of($posts)->make(true);
     }
 
     /**
@@ -96,19 +101,12 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Post $post)
+    public function destroy($id)
     {
-        // Periksa apakah post ditemukan
-        if ($post) {
-            // Hapus post
-            $post->delete();
-
-            // Redirect ke halaman tertentu atau tampilkan pesan sukses
-            return redirect()->route('admin.posts.index')->with('success', 'Post berhasil dihapus');
-        } else {
-            // Redirect atau tampilkan pesan error jika post tidak ditemukan
-            return redirect()->route('admin.posts.index')->with('error', 'Post tidak ditemukan');
-        }
+        $post = Post::findOrFail($id);
+        $post->delete();
+        
+        return response()->json(['success' => true]);
     }
 
     /**

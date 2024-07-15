@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use DataTables;
 use App\Models\Note;
 
 class NoteController extends Controller
@@ -14,9 +15,13 @@ class NoteController extends Controller
      */
     public function index()
     {
-        $notes = Note::all();
-        return view('admin.notes.index', compact('notes'));
+        return view('admin.notes.index');
     }
+
+    public function dataPost(){
+        $notes = Note::all();
+        return DataTables::of($notes)->make(true);
+    }    
 
     /**
      * Show the form for creating a new note.
@@ -92,9 +97,9 @@ class NoteController extends Controller
      */
     public function destroy($id)
     {
-        $note = Note::findOrFail($id);
-        $note->delete();
-
-        return redirect()->route('admin.notes.index')->with('success', 'Note deleted successfully.');
+        $post = Note::findOrFail($id);
+        $post->delete();
+        
+        return response()->json(['success' => true]);
     }
 }

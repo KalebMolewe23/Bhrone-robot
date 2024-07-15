@@ -47,7 +47,7 @@
     <section>
         <div class="container_history"><br>
             <div align="left">
-                <h3 style='color:orange'>VISI, MISI, DAN TUJUAN</h3>
+                <h3 style='color:orange'>Sejarah / Profil</h3>
                 <h6>17-06-2024, <span style="font-size:15px;">Diterbitkan oleh admin</span></h6><br>
             </div>
             <center>

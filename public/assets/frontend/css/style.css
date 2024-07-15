@@ -177,6 +177,11 @@ section{
     margin-top: 100px;
 }
 
+.section2{
+    min-height: 100vh;
+    padding: 10px 9% 2rem;
+}
+
 .section-home{
     min-height: 5vh;
     padding: 3rem 9% 2rem;

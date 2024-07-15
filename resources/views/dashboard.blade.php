@@ -94,7 +94,7 @@
             <div class="modal-content">
                 <span class="close" onclick="closeModal({{ $v_inf->id }})">&times;</span>
                 <h2>{{ $v_inf->title }}</h2><p style="color:orange">{{ $v_inf->caption }}</p><br>
-                <p>{{ $v_inf->description }}</p>
+                <p>{!! $v_inf->description !!}</p>
             </div>
         </div>
     @endforeach

@@ -35,6 +35,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url('/admin/notes') }}"><strong>Catatan</strong></a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('/admin/cms') }}"><strong>CMS</strong></a>
+                </li>
             </ul>
         </div>
         </div>

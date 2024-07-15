@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <!-- css style -->
     <link rel="stylesheet" href="{{ asset('assets/frontend/css/style.css') }}">
     
@@ -13,6 +15,9 @@
 
     <!-- boxicons style -->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    <!-- datatables -->
+    <link href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css" rel="stylesheet">
 </head>
 <body>
 
@@ -27,13 +32,16 @@
         <div class="offcanvas-body">
             <ul class="navbar-nav justify-content-center flex-grow-1 pe-3">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{ url('/admin') }}"><strong>Home</strong></a>
+                    <a class="nav-link" aria-current="page" href="{{ url('/admin') }}"><strong>Home</strong></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/admin/posts') }}"><strong>Post</strong></a>
+                    <a class="nav-link active" href="{{ url('/admin/posts') }}"><strong>Post</strong></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url('/admin/notes') }}"><strong>Catatan</strong></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('/admin/cms') }}"><strong>CMS</strong></a>
                 </li>
             </ul>
         </div>
@@ -46,12 +54,11 @@
     </nav>
 
 
-    <section>
-<div class="jumbotron m-5" style=" border: 4px solid white; padding: 0.5rem; color:white; min-height: 80vh; min-height:90vh">
+    <div class="section2">
         <h2 class="my-4" style="color:black">Semua Postingan</h2>
-        <a href="{{ route('admin.posts.create') }}" class="btn btn-primary mb-4">+</a>
+        <a href="{{ route('admin.posts.create') }}" class="btn btn-primary mb-4">+ Tambah Postingan</a>
         <div class="table-responsive">
-            <table class="table table-bordered">
+            <table id="article-table" class="display">
                 <thead>
                     <tr>
                         <th>Title</th>
@@ -60,29 +67,62 @@
                         <th>Actions</th>
                     </tr>
                 </thead>
-                <tbody>
-                    @foreach($posts as $post)
-                    <tr>
-                        <td>{{ $post->title }}</td>
-                        <td>{{ $post->category->name }}</td>
-                        <td>{{ ucfirst($post->status) }}</td>
-                        <td>
-                            <a href="{{ route('admin.posts.edit', $post->id) }}" class="btn btn-primary">Edit</a>
-                            <form action="{{ route('admin.posts.destroy', $post->id) }}" method="POST"
-                                style="display: inline-block;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger"
-                                    onclick="return confirm('Are you sure you want to delete this post?')">Delete</button>
-                            </form>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
+            </table> 
         </div>
     </div>
-</div>
-</section>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#article-table').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: "{{ route('posts.data') }}",
+                columns: [
+                    { data: 'title', name: 'title' },
+                    { 
+                        data: 'id_category',
+                        name: 'id_category',
+                        render: function(data) {
+                            return data == 1 ? 'Berita' : 'Pengumuman';
+                        }
+                    },
+                    { data: 'status', name: 'status' },
+                    { 
+                        data: 'id',
+                        render: function(data) {
+                            return '<a href="/admin/posts/' + data + '/edit" class="btn btn-primary btn-sm">Edit</a> ' +
+                           '<button class="btn btn-danger btn-sm" onclick="deletePost(' + data + ')">Delete</button>';
+                        }
+                    }
+                ]
+            });
+        });
+
+        function editPost(id) {
+            window.location.href = '/edit/' + id;
+        }
+
+        function deletePost(id) {
+            if (confirm('Are you sure you want to delete this post?')) {
+                $.ajax({
+                    url: '/admin/posts/' + id,
+                    type: 'DELETE',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(response) {
+                        $('#article-table').DataTable().ajax.reload();
+                    },
+                    error: function(xhr) {
+                        console.error('Error deleting post:', xhr.responseText);
+                    }
+                });
+            }
+        }
+
+    </script>
+
 </body>
 </html>
