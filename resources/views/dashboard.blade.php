@@ -1,307 +1,690 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+
+<?php
+    $DataImage1 = $image1->image;
+    $DataImage2 = $image2->image;
+    $DataImage3 = $image3->image;
+    $DataImage4 = $image4->image;
+    $DataImage5 = $image5->image;
+?>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/frontend/user/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/frontend/user/css/owl.carousel.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/frontend/user/css/owl.theme.default.min.css') }}">
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="{{ asset('assets/frontend/user/css/style.css') }}">
+
     <title>HOME - BRONE</title>
     <link rel="icon" href="{{ asset('assets/image/icon.png') }}" type="image/x-icon">
 
-    <!-- css style -->
-    <link rel="stylesheet" href="{{ asset('assets/frontend/css/style.css') }}">
-    
-    <!-- bootstrap style -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+         /* slide */
+        .slide {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
 
-    <!-- boxicons style -->
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+        .slide1 {
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url({{ asset('assets/image/header/'.$DataImage1) }});
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .slide2 {
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url({{ asset('assets/image/header/'.$DataImage2) }});
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .slide3 {
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url({{ asset('assets/image/header/'.$DataImage3) }});
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .slide4 {
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url({{ asset('assets/image/header/'.$DataImage4) }});
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .slide5 {
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url({{ asset('assets/image/header/'.$DataImage5) }});
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .slide .display-3 {
+            text-transform: uppercase;
+            color: #fff;
+        }
+
+        .moving-image {
+            /* position: absolute; */
+            bottom: 0;
+            animation: moveUpDown 5s infinite alternate;
+        }
+
+        @keyframes moveUpDown {
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .button_informasi {
+            padding: 10px 20px;
+            margin: 0 10px;
+            text-decoration: none;
+            color: black;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            display: inline-block;
+        }
+        .button_informasi.active {
+            background-color: #ff4d29;
+            color: white;
+            border-color: #ff4d29;
+        }
+    </style>
 </head>
-<body>
 
-    <!-- Loading website -->
-    <div id="preloader">
-        <div class="center">
-            <div class="ring"></div>
-            <span><img style="width: 150px;margin-top:30px" src="{{ asset('assets/image/icon.png') }}" alt=""></span>
+<body data-bs-spy="scroll" data-bs-target=".navbar" data-bs-offset="70">
+
+
+    <!-- TOP NAV -->
+    <div class="top-nav" id="home">
+        <div class="container">
+            <div class="row justify-content-between">
+                <div class="col-auto">
+                    <p> <i class='bx bxs-envelope'></i> debra.holt@example.com</p>
+                    <p> <i class='bx bxs-phone-call'></i> (219) 555-0114</p>
+                </div>
+                <div class="col-auto social-icons">
+                    <a href="#"><i class='bx bxl-facebook'></i></a>
+                    <a href="#"><i class='bx bxl-twitter'></i></a>
+                    <a href="#"><i class='bx bxl-instagram'></i></a>
+                    <a href="#"><i class='bx bxl-pinterest'></i></a>
+                </div>
+            </div>
         </div>
     </div>
 
-    <nav class="navbar navbar-expand-lg fixed-top">
-        <div class="container-fluid">
-            <a class="navbar-brand me-auto" href="/"><strong>BRONE</strong> <img src="{{ asset('assets/image/icon.png') }}" style="width:50px"></a>
-            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-            <div class="offcanvas-header">
-                <h5 class="offcanvas-title" id="offcanvasNavbarLabel">BRONE</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-            </div>
-            <div class="offcanvas-body">
-                <ul class="navbar-nav justify-content-center flex-grow-1 pe-3">
+    <!-- BOTTOM NAV -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#"><strong>BRONE</strong> <img src="{{ asset('assets/image/icon.png') }}" style="width:50px"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#home"><strong>Home</strong></a>
+                        <a class="nav-link" href="#home">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#tentang"><strong>Tentang</strong></a>
+                        <a class="nav-link" href="#about">About</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#informasi"><strong>Informasi</strong></a>
+                        <a class="nav-link" href="#article">Article</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#layanan"><strong>Layanan</strong></a>
+                        <a class="nav-link" href="#portfolio">Portfolio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#team">Team</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#blog">Blog</a>
                     </li>
                 </ul>
+                <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-brand ms-lg-3">Contact</a>
             </div>
-            </div>
-            <form class="d-flex mt-3" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
-            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-            </button>
         </div>
     </nav>
 
-    <!-- header content -->
-    <section id="home">
-        <div class="container">
-            <div class="slide">
+    <!-- SLIDER -->
+    <div class="owl-carousel owl-theme hero-slider">
+        <div class="slide slide1">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 text-left text-white">
+                        <h6 class="text-white text-uppercase"><?= $image1->caption; ?></h6>
+                        <h3 class="display-3 my-4"><?= $image1->title; ?></h3>
+                        <a href="#" class="btn btn-brand">Read More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slide slide2">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 text-left col-lg-10 offset-lg-1 text-white">
+                        <h6 class="text-white text-uppercase"><?= $image2->caption; ?></h6>
+                        <h3 class="display-3 my-4"><?= $image2->title; ?></h3>
+                        <a href="#" class="btn btn-brand">Read More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slide slide3">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 text-left col-lg-10 offset-lg-1 text-white">
+                        <h6 class="text-white text-uppercase"><?= $image3->caption; ?></h6>
+                        <h3 class="display-3 my-4"><?= $image3->title; ?></h3>
+                        <a href="#" class="btn btn-brand">Read More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slide slide4">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 text-left col-lg-10 offset-lg-1 text-white">
+                        <h6 class="text-white text-uppercase"><?= $image4->caption; ?></h6>
+                        <h3 class="display-3 my-4"><?= $image4->title; ?></h3>
+                        <a href="#" class="btn btn-brand">Read More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slide slide5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 text-left col-lg-10 offset-lg-1 text-white">
+                        <h6 class="text-white text-uppercase"><?= $image5->caption; ?></h6>
+                        <h3 class="display-3 my-4"><?= $image5->title; ?></h3>
+                        <a href="#" class="btn btn-brand">Read More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-                <?php
-                    foreach($information as $v_inf){
-                ?>
-                    <div class="item" style="background-image: url('{{ asset('assets/image/header/'.$v_inf->image) }}'); background-size: cover;">
-                        <div class="content">
-                            <div class="name">{{ $v_inf->title }}</div>
-                            <div class="des">{{ $v_inf->caption }}</div>
-                            <button onclick="openModal({{ $v_inf->id }})">Lihat Selengkapnya <i class='bx bx-right-arrow-alt'></i></button>
+    <!-- ABOUT -->
+    <section id="about">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-5 py-5">
+                    <div class="row">
+
+                        <div class="col-12">
+                            <div class="info-box">
+                                <img src="{{ asset('assets/frontend/user/img/icon6.png') }}" alt="">
+                                <div class="ms-4">
+                                    <h5>Article About Brone</h5>
+                                    <p>It is a long established fact that a reader will be distracted by the readable
+                                        content of a page </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 mt-4">
+                            <div class="info-box">
+                                <img src="{{ asset('assets/frontend/user/img/icon4.png') }}" alt="">
+                                <div class="ms-4">
+                                    <h5>News About Brone</h5>
+                                    <p>It is a long established fact that a reader will be distracted by the readable
+                                        content of a page </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 mt-4">
+                            <div class="info-box">
+                                <img src="{{ asset('assets/frontend/user/img/icon5.png') }}" alt="">
+                                <div class="ms-4">
+                                    <h5>Announcement About Brone</h5>
+                                    <p>It is a long established fact that a reader will be distracted by the readable
+                                        content of a page </p>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                <?php
-                    }
-                ?>
-
-            </div>
-
-            <div class="button">
-                <button class="prev"><i class='bx bx-left-arrow-alt'></i></button>
-                <button class="next"><i class='bx bx-right-arrow-alt'></i></button>
-            </div>
-        </div>
-
-    </section>
-
-    @foreach($information as $v_inf)
-        <div id="modal{{ $v_inf->id }}" class="modal">
-            <div class="modal-content">
-                <span class="close" onclick="closeModal({{ $v_inf->id }})">&times;</span>
-                <h2>{{ $v_inf->title }}</h2><p style="color:orange">{{ $v_inf->caption }}</p><br>
-                <p>{!! $v_inf->description !!}</p>
-            </div>
-        </div>
-    @endforeach
-
-    <!-- menu 2 --> 
-    <section class="section-home" style="background-color:#222F3E">
-        <center><h3 style="color:white;"><strong>Layanan Kami</strong></h3></center><br>
-        <div class="row">
-            <div class="col">
-                <div class="icon" style="text-align:right;">
-                    <i class='bx bx-home' style='font-size: 40px; color: white;'></i><br>
-                    Home         
                 </div>
-            </div>
-            <div class="col">
-                <div class="icon" style="margin-left:50px">
-                    <i class='bx bx-cog' style='font-size: 40px; color: white;'></i><br>
-                        Tentang         
-                </div>
-            </div>
-            <div class="col">
-                <div class="icon" style="margin-right:50px">
-                    <i class='bx bxs-info-circle' style='font-size: 40px; color: white;'></i><br>
-                        Informasi         
-                </div>
-            </div>
-            <div class="col">
-                <div class="icon" style="text-align:left;">
-                    <i class='bx bxs-user-voice' style='font-size: 40px; color: white;'></i></i><br>
-                        Layanan         
+                <div class="col-lg-5">
+                    <img src="{{ asset('assets/image/icon.png') }}" class="moving-image" alt="">
                 </div>
             </div>
         </div>
     </section>
 
-    <section style="text-align: center;" id="tentang">
-        <h4 class="text-center">Tentang <i class='bx bx-cog' style='font-size: 20px; color: black'></i></h4>
-        <br>
-        <div style="display: flex; justify-content: space-around;margin-bottom: 20px;" class="row">
-            <div style="text-align: right;" class="col">
-                <a href="{{ url('/history') }}" class="signup-button">Sejarah/Profil</a><br><br><br>
-            </div>
-            <div style="text-align: left;" class="col">
-                <a href="{{ url('/visi') }}" class="login-button">Visi, Misi, dan Tujuan</a><br><br><br>
+    <!-- MILESTONE -->
+    <section id="milestone">
+        <div class="container">
+            <div class="row text-center justify-content-center gy-4">
+                <div class="col-lg-2 col-sm-6">
+                    <h1 class="display-4">90K+</h1>
+                    <p class="mb-0">Total Article Brone</p>
+                </div>
+                <div class="col-lg-2 col-sm-6">
+                    <h1 class="display-4">45M</h1>
+                    <p class="mb-0">Total News Brone</p>
+                </div>
+                <div class="col-lg-2 col-sm-6">
+                    <h1 class="display-4">190</h1>
+                    <p class="mb-0">Total Announcement Brone</p>
+                </div>
+                <div class="col-lg-2 col-sm-6">
+                    <h1 class="display-4">380K</h1>
+                    <p class="mb-0">Total Team Brone</p>
+                </div>
             </div>
         </div>
-        <div class="row">
-            <h4 class="text-center">Lagi Viral <i class='bx bxs-hot' style='font-size: 20px; color: red'></i></h4>
-            <h7>Lihat Artikel <i class='bx bx-right-arrow-circle'></i></h7><br><br> 
+    </section>
+
+    <section class="text-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="intro">
+                        <h6>About Brone</h6>
+                        <h1>Vision, Mission, And Objectives</h1>
+                        <p class="mx-auto">Contrary to popular belief, Lorem Ipsum is not simply random text. It has
+                            roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <div class="service">
+                        <img src="{{ asset('assets/frontend/user/img/icon3.png') }}" alt="">
+                        <h5>Vision Brone</h5>
+                        <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of
+                            classical Latin literature from</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="service">
+                        <img src="{{ asset('assets/frontend/user/img/icon2.png') }}" alt="">
+                        <h5>Mission Brone</h5>
+                        <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of
+                            classical Latin literature from</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="service">
+                        <img src="{{ asset('assets/frontend/user/img/icon5.png') }}" alt="">
+                        <h5>Objectives Brone</h5>
+                        <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of
+                            classical Latin literature from</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="article">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="intro">
+                        <h6>Article</h6>
+                        <h1>Article Posts</h1>
+                        <p class="mx-auto">Contrary to popular belief, Lorem Ipsum is not simply random text. It has
+                            roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old</p>
+                    </div>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-md-4">
-                    <div class="card">
-                        <img src="{{ asset('assets/image/artikel/artikel1.jpg') }}" class="card-img-top" alt="Gambar 1">
-                        <div class="card-body">
-                            <p>04 Juni 2024</p>
-                            <h5>Belajar dari Kegagalan, Perusahaan Happy Asmara Gandeng UB Kembangkan Inovasi</h5>
-                            <a href=""><p style="font-size:13px">Baca Selengkapnya</p></a>
+                    <article class="blog-post">
+                        <img src="{{ asset('assets/frontend/user/img/project5.jpg') }}" alt="">
+                        <a href="#" class="tag">Article</a>
+                        <div class="content">
+                            <small>01 Dec, 2022</small>
+                            <h5>Web Design trends in 2022</h5>
+                            <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a
+                                piece of classical Latin literature from</p>
                         </div>
-                    </div>
+                    </article>
                 </div>
                 <div class="col-md-4">
-                    <div class="card">
-                        <img src="{{ asset('assets/image/artikel/artikel2.jpg') }}" class="card-img-top" alt="Gambar 2">
-                        <div class="card-body">
-                            <p>04 Juni 2024</p>
-                            <h5>Dianka Harissandy, Mahasiswi Ilmu Komunikasi UB Top 10 MMBI</h5>
-                            <a href=""><p style="font-size:13px">Baca Selengkapnya</p></a>
+                    <article class="blog-post">
+                        <img src="{{ asset('assets/frontend/user/img/project4.jpg') }}" alt="">
+                        <a href="#" class="tag">Article</a>
+                        <div class="content">
+                            <small>01 Dec, 2022</small>
+                            <h5>Web Design trends in 2022</h5>
+                            <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a
+                                piece of classical Latin literature from</p>
                         </div>
-                    </div>
+                    </article>
                 </div>
                 <div class="col-md-4">
-                    <div class="card">
-                        <img src="{{ asset('assets/image/artikel/artikel3.jpeg') }}" class="card-img-top" alt="Gambar 3">
-                        <div class="card-body">
-                            <p>04 Juni 2024</p>
-                            <h5>Sejak 5 Tahun Belajar Tilawah, Mahasiswi FT Juara 1 Tartilil MTQ UB</h5>
-                            <a href=""><p style="font-size:13px">Baca Selengkapnya</p></a>
+                    <article class="blog-post">
+                        <img src="{{ asset('assets/frontend/user/img/project2.jpg') }}" alt="">
+                        <a href="#" class="tag">Article</a>
+                        <div class="content">
+                            <small>01 Dec, 2022</small>
+                            <h5>Web Design trends in 2022</h5>
+                            <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a
+                                piece of classical Latin literature from</p>
                         </div>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-light" id="portfolio">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="intro">
+                        <h6>Work</h6>
+                        <h1>Successful projects</h1>
+                        <p class="mx-auto">Contrary to popular belief, Lorem Ipsum is not simply random text. It has
+                            roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="projects-slider" class="owl-theme owl-carousel">
+            <div class="project">
+                <div class="overlay"></div>
+                <img src="{{ asset('assets/frontend/user/img/project1.jpg') }}" alt="">
+                <div class="content">
+                    <h2>Consulting Marketing</h2>
+                    <h6>Website Design</h6>
+                </div>
+            </div>
+            <div class="project">
+                <div class="overlay"></div>
+                <img src="{{ asset('assets/frontend/user/img/project2.jpg') }}" alt="">
+                <div class="content">
+                    <h2>Consulting Marketing</h2>
+                    <h6>Website Design</h6>
+                </div>
+            </div>
+            <div class="project">
+                <div class="overlay"></div>
+                <img src="{{ asset('assets/frontend/user/img/project3.jpg') }}" alt="">
+                <div class="content">
+                    <h2>Consulting Marketing</h2>
+                    <h6>Website Design</h6>
+                </div>
+            </div>
+            <div class="project">
+                <div class="overlay"></div>
+                <img src="{{ asset('assets/frontend/user/img/project4.jpg') }}" alt="">
+                <div class="content">
+                    <h2>Consulting Marketing</h2>
+                    <h6>Website Design</h6>
+                </div>
+            </div>
+            <div class="project">
+                <div class="overlay"></div>
+                <img src="{{ asset('assets/frontend/user/img/project5.jpg') }}" alt="">
+                <div class="content">
+                    <h2>Consulting Marketing</h2>
+                    <h6>Website Design</h6>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="team">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="intro">
+                        <h6>Team</h6>
+                        <h1>Team Members</h1>
+                        <p class="mx-auto">Contrary to popular belief, Lorem Ipsum is not simply random text. It has
+                            roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-4 col-md-8">
+                    <div class="team-member">
+                        <div class="image">
+                            <img src="{{ asset('assets/frontend/user/img/team_1.jpg') }}" alt="">
+                            <div class="social-icons">
+                                <a href="#"><i class='bx bxl-facebook'></i></a>
+                                <a href="#"><i class='bx bxl-twitter'></i></a>
+                                <a href="#"><i class='bx bxl-instagram'></i></a>
+                                <a href="#"><i class='bx bxl-pinterest'></i></a>
+                            </div>
+                            <div class="overlay"></div>
+                        </div>
+
+                        <h5>Marvin McKinney</h5>
+                        <p>Marketing Coordinator</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-8">
+                    <div class="team-member">
+                        <div class="image">
+                            <img src="{{ asset('assets/frontend/user/img/team_2.jpg') }}" alt="">
+                            <div class="social-icons">
+                                <a href="#"><i class='bx bxl-facebook'></i></a>
+                                <a href="#"><i class='bx bxl-twitter'></i></a>
+                                <a href="#"><i class='bx bxl-instagram'></i></a>
+                                <a href="#"><i class='bx bxl-pinterest'></i></a>
+                            </div>
+                            <div class="overlay"></div>
+                        </div>
+
+                        <h5>Kathryn Murphy</h5>
+                        <p>Ethical Hacker</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-8">
+                    <div class="team-member">
+                        <div class="image">
+                            <img src="{{ asset('assets/frontend/user/img/team_3.jpg') }}" alt="">
+                            <div class="social-icons">
+                                <a href="#"><i class='bx bxl-facebook'></i></a>
+                                <a href="#"><i class='bx bxl-twitter'></i></a>
+                                <a href="#"><i class='bx bxl-instagram'></i></a>
+                                <a href="#"><i class='bx bxl-pinterest'></i></a>
+                            </div>
+                            <div class="overlay"></div>
+                        </div>
+
+                        <h5>Darrell Steward</h5>
+                        <p>Software Developer</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section style="background-image: url('{{ asset('assets/image/work.jpg') }}'); background-size: cover; background-position: center; min-height: 50vh; position: relative;">
-        <div class="row" style="margin-top:-100px">
-            <div class="col text-left" style="color:white;">
-                <h5>BRONE</h5><br>
-                <h4>
-                    Maskot UB bernama BRONE, yang merupakan singkatan dari <span style="color:orange"><strong>"Brawijaya Number One"</strong></span>. BRONE memiliki konsep sebagai robot pendamping yang menjadi pemandu informasi. Dia mampu belajar dan terus berkembang.
-                </h4><br><br>
-                <p style="color:orange"><strong>"Building Up Noble Future"</strong></p>
+    <section id="blog">
+        <div class="container">
+            <h1 style="text-align:center;">News & Announcement</h1>
+            <div class="row">
+                <div class="col-12">
+                    <div class="intro">
+                        <h6><a href="#berita-content" class="button_informasi active" id="berita-button" onclick="showBerita()">News</a>
+                        <a href="#pengumuman-content" class="button_informasi" id="pengumuman-button" onclick="showPengumuman()">Announcement</a></h6>
+                    </div>
+                </div>
             </div>
-            <div class="col" style="text-align: center;">
-                <img src="{{ asset('assets/image/icon.png') }}" class="moving-image" style="width:220px">
+            <div id="berita-content" class="content_informasi">
+                <div class="row">
+                    <div class="col-md-4">
+                        <article class="blog-post">
+                            <img src="{{ asset('assets/frontend/user/img/project5.jpg') }}" alt="">
+                            <a href="#" class="tag">Web Design</a>
+                            <div class="content">
+                                <small>01 Dec, 2022</small>
+                                <h5>Web Design trends in 2022</h5>
+                                <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a
+                                    piece of classical Latin literature from</p>
+                            </div>
+                        </article>
+                    </div>
+                    <div class="col-md-4">
+                        <article class="blog-post">
+                            <img src="{{ asset('assets/frontend/user/img/project4.jpg') }}" alt="">
+                            <a href="#" class="tag">Programming</a>
+                            <div class="content">
+                                <small>01 Dec, 2022</small>
+                                <h5>Web Design trends in 2022</h5>
+                                <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a
+                                    piece of classical Latin literature from</p>
+                            </div>
+                        </article>
+                    </div>
+                    <div class="col-md-4">
+                        <article class="blog-post">
+                            <img src="{{ asset('assets/frontend/user/img/project2.jpg') }}" alt="">
+                            <a href="#" class="tag">Marketing</a>
+                            <div class="content">
+                                <small>01 Dec, 2022</small>
+                                <h5>Web Design trends in 2022</h5>
+                                <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a
+                                    piece of classical Latin literature from</p>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </div>
+            <div id="pengumuman-content" class="content_informasi" style="display: none;">
+            <div class="row">
+                    <div class="col-md-4">
+                        <article class="blog-post">
+                            <img src="{{ asset('assets/frontend/user/img/project5.jpg') }}" alt="">
+                            <a href="#" class="tag">Web Design</a>
+                            <div class="content">
+                                <small>01 Dec, 2022</small>
+                                <h5>Web Design trends in 2022</h5>
+                                <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a
+                                    piece of classical Latin literature from</p>
+                            </div>
+                        </article>
+                    </div>
+                    <div class="col-md-4">
+                        <article class="blog-post">
+                            <img src="{{ asset('assets/frontend/user/img/project4.jpg') }}" alt="">
+                            <a href="#" class="tag">Programming</a>
+                            <div class="content">
+                                <small>01 Dec, 2022</small>
+                                <h5>Web Design trends in 2022</h5>
+                                <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a
+                                    piece of classical Latin literature from</p>
+                            </div>
+                        </article>
+                    </div>
+                    <div class="col-md-4">
+                        <article class="blog-post">
+                            <img src="{{ asset('assets/frontend/user/img/project2.jpg') }}" alt="">
+                            <a href="#" class="tag">Marketing</a>
+                            <div class="content">
+                                <small>01 Dec, 2022</small>
+                                <h5>Web Design trends in 2022</h5>
+                                <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a
+                                    piece of classical Latin literature from</p>
+                            </div>
+                        </article>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <section id="informasi">
-    <h4>Informasi <i class='bx bxs-info-circle' style='font-size: 20px; color: black;'></i></h4>
-    <center>
-        <a href="#berita-content" class="button_informasi active" id="berita-button" onclick="showBerita()">Berita</a>
-        <a href="#pengumuman-content" class="button_informasi" id="pengumuman-button" onclick="showPengumuman()">Pengumuman</a>
-    </center><br>
-
-    <div id="berita-content" class="content_informasi">        
-        <!-- Konten Berita -->
-
-        <?php foreach($post as $v_post) { ?>
-            <div class="row justify-content-center align-items-center">
-                <div class="col-md-4 text-center">
-                    <div class="circle">
-                        <?php 
-                            $timestamp = strtotime($v_post->created_at); 
-                            $day = date('d', $timestamp);
-                            $month = date('M', $timestamp);
-                            $years = date('Y', $timestamp);
-                        ?>
-                        <p><strong>{{ $day }}</strong></p>
-                        <p>{{ $month }}</p>
-                        <p>{{ $years }}</p>
+    <footer>
+        <div class="footer-top text-center">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-6 text-center">
+                        <h4 class="navbar-brand">Prixima<span class="dot">.</span></h4>
+                        <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of
+                            classical Latin literature from</p>
+                        <div class="col-auto social-icons">
+                            <a href="#"><i class='bx bxl-facebook'></i></a>
+                            <a href="#"><i class='bx bxl-twitter'></i></a>
+                            <a href="#"><i class='bx bxl-instagram'></i></a>
+                            <a href="#"><i class='bx bxl-pinterest'></i></a>
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-4 text-left">
-                    <label class="login-button">Berita</label><br><br>
-                    <h5>{{ $v_post->title }}</h5><br>
-                    <a href="#"><h7>Baca Selengkapnya</h7></a>
-                </div>
-                <div class="col-md-4 text-center">
-                    <img src="{{ asset($v_post->thumbnail) }}" style="width:100px">
-                </div>
             </div>
-            <hr>
-        <?php } ?>
-        <br><br>
-        <center>
-            <a href=""><button class="btn btn-primary">Lihat Semua Artikel</button></a>
-        </center>
-    </div>
+        </div>
+        <div class="footer-bottom text-center">
+            <p class="mb-0">Copyright@2020. All rights Reserved</p>
+        </div>
+    </footer>
 
-    <div id="pengumuman-content" class="content_informasi" style="display: none;">
-        <!-- Konten Pengumuman -->
-        <?php foreach($announcement as $v_announcement) { ?>
-            <div class="row justify-content-center align-items-center">
-                <div class="col-md-4 text-center">
-                    <div class="circle">
-                        <?php 
-                            $timestamp = strtotime($v_announcement->created_at); 
-                            $day = date('d', $timestamp);
-                            $month = date('M', $timestamp);
-                            $years = date('Y', $timestamp);
-                        ?>
-                        <p><strong>{{ $day }}</strong></p>
-                        <p>{{ $month }}</p>
-                        <p>{{ $years }}</p>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-content">
+                <div class="modal-body p-0">
+                    <div class="container-fluid">
+                        <div class="row gy-4">
+                            <div class="col-lg-4 col-sm-12 bg-cover"
+                                style="background-image: url({{ asset('assets/frontend/user/img/c2.jpg') }}); min-height:300px;">
+                                <div>
+                                    
+                                </div>
+                            </div>
+                            <div class="col-lg-8">
+                                <form class="p-lg-5 col-12 row g-3">
+                                    <div>
+                                        <h1>Get in touch</h1>
+                                    <p>Fell free to contact us and we will get back to you as soon as possible</p>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label for="userName" class="form-label">First name</label>
+                                        <input type="text" class="form-control" placeholder="Jon" id="userName"
+                                            aria-describedby="emailHelp">
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label for="userName" class="form-label">Last name</label>
+                                        <input type="text" class="form-control" placeholder="Doe" id="userName"
+                                            aria-describedby="emailHelp">
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="userName" class="form-label">Email address</label>
+                                        <input type="email" class="form-control" placeholder="Johndoe@example.com" id="userName"
+                                            aria-describedby="emailHelp">
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="exampleInputEmail1" class="form-label">Enter Message</label>
+                                        <textarea name="" placeholder="This is looking great and nice." class="form-control" id=""  rows="4"></textarea>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <button type="submit" class="btn btn-brand">Send Message</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-4 text-left">
-                    <label class="login-button">Berita</label><br><br>
-                    <h5>{{ $v_announcement->title }}</h5><br>
-                    <a href="#"><h7>Baca Selengkapnya</h7></a>
-                </div>
-                <div class="col-md-4 text-center">
-                    <img src="{{ asset($v_announcement->thumbnail) }}" style="width:100px">
-                </div>
-            </div>
-            <hr>
-        <?php } ?>
-        <br><br>
-        <center>
-            <a href=""><button class="btn btn-primary">Lihat Semua Artikel</button></a>
-        </center>
-    </div>
-</section>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <script src="{{ asset('assets/frontend/js/main.js') }}"></script>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ asset('assets/frontend/user/js/jquery.min.js') }}"></script>
+    <script src="{{ asset('assets/frontend/user/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('assets/frontend/user/js/owl.carousel.min.js') }}"></script>
+    <script src="{{ asset('assets/frontend/user/js/app.js') }}"></script>
+
     <script>
-
-        var loader = document.getElementById("preloader");
-
-        window.addEventListener("load", function(){
-            loader.style.display = "none";
-        })
-
-        function openModal(modalNumber) {
-            var modal = document.getElementById('modal' + modalNumber);
-            if (modal) {
-                modal.style.display = 'block';
-            }
-        }
-
-        function closeModal(modalNumber) {
-            var modal = document.getElementById('modal' + modalNumber);
-            if (modal) {
-                modal.style.display = 'none';
-            }
-        }
-
-        window.onclick = function(event) {
-            if (event.target.classList.contains('modal')) {
-                event.target.style.display = "none";
-            }
-        }
-
         function showBerita() {
             document.getElementById('berita-content').style.display = 'block';
             document.getElementById('pengumuman-content').style.display = 'none';
@@ -310,7 +693,6 @@
             document.getElementById('pengumuman-button').classList.remove('active');
         }
 
-        // Fungsi untuk menampilkan konten Pengumuman dan menyembunyikan Berita
         function showPengumuman() {
             document.getElementById('berita-content').style.display = 'none';
             document.getElementById('pengumuman-content').style.display = 'block';
@@ -319,15 +701,13 @@
             document.getElementById('pengumuman-button').classList.add('active');
         }
 
-        // Mengatur kondisi awal berdasarkan hash dari URL
         window.onload = function() {
             var hash = window.location.hash.substr(1);
             if (hash === 'pengumuman') {
                 showPengumuman();
             } else {
-                showBerita(); // Default ke Berita jika hash tidak ada atau tidak valid
+                showBerita();
             }
         };
     </script>
 </body>
-</html>
