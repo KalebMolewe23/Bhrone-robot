@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="{{ asset('assets/frontend/user/css/owl.theme.default.min.css') }}">
     <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="{{ asset('assets/frontend/user/css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
 
     <title>HOME - BRONE</title>
     <link rel="icon" href="{{ asset('assets/image/icon.png') }}" type="image/x-icon">
@@ -103,11 +104,66 @@
             color: white;
             border-color: #ff4d29;
         }
+        #preloader{
+            background: white;
+            height: 100vh;
+            width: 100%;
+            position: fixed;
+            z-index:9999;
+        }
+        .ring{
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            animation: ring 2s linear infinite;
+        }
+
+        .center{
+            display: flex;
+            text-align: center;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        @keyframes ring{
+            0%{
+                transform: rotate(0deg);
+                box-shadow: 1px 5px 2px #15baef;
+            }
+            50%{
+                transform: rotate(180deg);
+                box-shadow: 1px 5px 2px #000;
+            }
+            100%{
+                transform: rotate(360deg);
+                box-shadow: 1px 5px 2px #00183a;
+            }
+        }
+
+        .ring:before{
+            position: absolute;
+            content: '';
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            border-radius: 50%;
+            box-shadow: 0 0 5px #15baef;
+        }
     </style>
 </head>
 
 <body data-bs-spy="scroll" data-bs-target=".navbar" data-bs-offset="70">
 
+    <!-- Loading website -->
+    <div id="preloader">
+        <div class="center">
+            <div class="ring"></div>
+            <span><img style="width: 150px;margin-top:30px" src="{{ asset('assets/image/icon.png') }}" alt=""></span>
+        </div>
+    </div>
 
     <!-- TOP NAV -->
     <div class="top-nav" id="home">
@@ -225,7 +281,7 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-5 py-5">
-                    <div class="row">
+                    <div class="row" data-aos="fade-left">
 
                         <div class="col-12">
                             <div class="info-box">
@@ -259,7 +315,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-5">
+                <div class="col-lg-5" data-aos="fade-right">
                     <img src="{{ asset('assets/image/icon.png') }}" class="moving-image" alt="">
                 </div>
             </div>
@@ -292,7 +348,7 @@
 
     <section class="text-center">
         <div class="container">
-            <div class="row">
+            <div class="row" data-aos="fade-down">
                 <div class="col-12">
                     <div class="intro">
                         <h6>About Brone</h6>
@@ -302,7 +358,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row g-4">
+            <div class="row g-4" data-aos="fade-up">
                 <div class="col-lg-4 col-md-6">
                     <div class="service">
                         <img src="{{ asset('assets/frontend/user/img/icon3.png') }}" alt="">
@@ -333,7 +389,7 @@
 
     <section id="article">
         <div class="container">
-            <div class="row">
+            <div class="row" data-aos="fade-down">
                 <div class="col-12">
                     <div class="intro">
                         <h6>Article</h6>
@@ -344,7 +400,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-4" data-aos="fade-up">
                     <article class="blog-post">
                         <img src="{{ asset('assets/frontend/user/img/project5.jpg') }}" alt="">
                         <a href="#" class="tag">Article</a>
@@ -386,18 +442,18 @@
 
     <section class="bg-light" id="portfolio">
         <div class="container">
-            <div class="row">
+            <div class="row" data-aos="fade-down">
                 <div class="col-12">
                     <div class="intro">
                         <h6>Work</h6>
                         <h1>Successful projects</h1>
                         <p class="mx-auto">Contrary to popular belief, Lorem Ipsum is not simply random text. It has
-                            roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old</p>
+                            roots in a piece of clkassical Latin literature from 45 BC, making it over 2000 years old</p>
                     </div>
                 </div>
             </div>
         </div>
-        <div id="projects-slider" class="owl-theme owl-carousel">
+        <div id="projects-slider" class="owl-theme owl-carousel" data-aos="fade-up">
             <div class="project">
                 <div class="overlay"></div>
                 <img src="{{ asset('assets/frontend/user/img/project1.jpg') }}" alt="">
@@ -512,7 +568,7 @@
     <section id="blog">
         <div class="container">
             <h1 style="text-align:center;">News & Announcement</h1>
-            <div class="row">
+            <div class="row" data-aos="fade-down">
                 <div class="col-12">
                     <div class="intro">
                         <h6><a href="#berita-content" class="button_informasi active" id="berita-button" onclick="showBerita()">News</a>
@@ -520,7 +576,7 @@
                     </div>
                 </div>
             </div>
-            <div id="berita-content" class="content_informasi">
+            <div id="berita-content" class="content_informasi" data-aos="fade-up">
                 <div class="row">
                     <div class="col-md-4">
                         <article class="blog-post">
@@ -560,7 +616,7 @@
                     </div>
                 </div>
             </div>
-            <div id="pengumuman-content" class="content_informasi" style="display: none;">
+            <div id="pengumuman-content" class="content_informasi" style="display: none;" data-aos="fade-up">
             <div class="row">
                     <div class="col-md-4">
                         <article class="blog-post">
@@ -683,8 +739,16 @@
     <script src="{{ asset('assets/frontend/user/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('assets/frontend/user/js/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('assets/frontend/user/js/app.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
 
     <script>
+
+        var loader = document.getElementById("preloader");
+
+        window.addEventListener("load", function(){
+            loader.style.display = "none";
+        })
+
         function showBerita() {
             document.getElementById('berita-content').style.display = 'block';
             document.getElementById('pengumuman-content').style.display = 'none';
@@ -709,5 +773,9 @@
                 showBerita();
             }
         };
+
+        AOS.init({
+            duration: 2000
+        });
     </script>
 </body>

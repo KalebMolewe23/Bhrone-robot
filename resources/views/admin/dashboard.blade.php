@@ -1,136 +1,274 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- css style -->
-    <link rel="stylesheet" href="{{ asset('assets/frontend/css/style.css') }}">
-    
-    <!-- bootstrap style -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="icon" href="{{ asset('assets/image/icon.png') }}" type="image/x-icon">
 
-    <!-- boxicons style -->
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+	<!-- Boxicons -->
+	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+	<!-- My CSS -->
+	<link rel="stylesheet" href="{{ asset('assets/admin/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+
+	<title>Dashboard Admin - BRONE</title>
+
+    <style>
+        #preloader{
+            background: white;
+            height: 100vh;
+            width: 100%;
+            position: fixed;
+            z-index:9999;
+        }
+
+        .ring{
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            animation: ring 2s linear infinite;
+        }
+
+        .center{
+            display: flex;
+            text-align: center;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        @keyframes ring{
+            0%{
+                transform: rotate(0deg);
+                box-shadow: 1px 5px 2px #15baef;
+            }
+            50%{
+                transform: rotate(180deg);
+                box-shadow: 1px 5px 2px #000;
+            }
+            100%{
+                transform: rotate(360deg);
+                box-shadow: 1px 5px 2px #00183a;
+            }
+        }
+
+        .ring:before{
+            position: absolute;
+            content: '';
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            border-radius: 50%;
+            box-shadow: 0 0 5px #15baef;
+        }
+    </style>
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-lg fixed-top">
-    <div class="container-fluid">
-        <a class="navbar-brand me-auto" href="#"><strong>BRONE</strong> <img src="{{ asset('assets/image/icon.png') }}" style="width:50px"></a>
-        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-        <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">BRONE</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    <!-- Loading website -->
+    <div id="preloader">
+        <div class="center">
+            <div class="ring"></div>
+            <span><img style="width: 150px;margin-top:30px" src="{{ asset('assets/image/icon.png') }}" alt=""></span>
         </div>
-        <div class="offcanvas-body">
-            <ul class="navbar-nav justify-content-center flex-grow-1 pe-3">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{ url('/admin') }}"><strong>Home</strong></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/admin/posts') }}"><strong>Post</strong></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/admin/notes') }}"><strong>Catatan</strong></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/admin/cms') }}"><strong>CMS</strong></a>
-                </li>
-            </ul>
-        </div>
-        </div>
-        <a href="{{ url('logout') }}" class="signup-button">Log Out</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-        </button>
     </div>
-    </nav>
+
+	<!-- SIDEBAR -->
+	<section id="sidebar">
+		<a style="margin-left:30px;" href="{{ url('/admin') }}" class="brand">
+            <img src="{{ asset('assets/image/icon.png') }}" style="width:30px">
+			<span class="text">Admin</span>
+		</a>
+		<ul class="side-menu top">
+			<li class="active">
+				<a href="{{ url('/admin') }}">
+					<i class='bx bxs-dashboard' ></i>
+					<span class="text">Dashboard</span>
+				</a>
+			</li>
+			<li>
+				<a href="{{ url('/admin/notes') }}">
+                    <i class='bx bxs-notepad'></i>
+					<span class="text">Task</span>
+				</a>
+			</li>
+			<li>
+				<a href="{{ url('/admin/posts') }}">
+                    <i class='bx bxs-news'></i>
+					<span class="text">News & Announcements</span>
+				</a>
+			</li>
+			<li>
+				<a href="{{ url('/admin/articles') }}">
+                    <i class='bx bx-news' ></i>
+					<span class="text">Article</span>
+				</a>
+			</li>
+			<li>
+				<a href="{{ url('/admin/teams') }}">
+					<i class='bx bxs-group' ></i>
+					<span class="text">Teams</span>
+				</a>
+			</li>
+		</ul>
+		<ul class="side-menu">
+			<li>
+				<a href="{{ url('/admin/cms') }}">
+					<i class='bx bxs-cog' ></i>
+					<span class="text">CMS</span>
+				</a>
+			</li>
+			<li>
+				<a href="{{ url('logout') }}" class="logout">
+					<i class='bx bxs-log-out-circle' ></i>
+					<span class="text">Logout</span>
+				</a>
+			</li>
+		</ul>
+	</section>
+	<!-- SIDEBAR -->
 
 
-    <section>
-        <center>
-            <div class="row">
-                <div class="col-sm-4">
-                    <div class="card m-3 bg-transparent"
-                        style="width: 18rem; border: 4px solid white; padding: 0.5rem; color:white;">
-                        <div class="card-body">
-                            <h1 class="card-text text-center">{{ $postCount }}</h1>
-                            <h5 class="card-title text-center">Jumlah Post</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="card m-3 bg-transparent"
-                        style="width: 18rem; border: 4px solid white; padding: 0.5rem; color:white;">
-                        <div class="card-body">
-                            <h1 class="card-text text-center">{{ $noteCount }}</h1>
-                            <h5 class="card-title text-center">Jumlah Catatan</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="card m-3 bg-transparent"
-                        style="width: 18rem; border: 4px solid white; padding: 0.5rem; color:white;">
-                        <div class="card-body">
-                            <h1 class="card-text text-center">{{ $userCount }}</h1>
-                            <h5 class="card-title text-center">Jumlah Admin</h5>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </center>
-        <div class="row mt-4">
-            <div class="col-sm-8">
-                <div class="jumbotron bg-transparent"
-                    style=" border: 4px solid white; padding: 0.5rem; color:white; min-height: 80vh">
-                    <h4>Catatan</h4>
-                    @foreach ($notes as $note)
-                    <a href="{{ route('admin.notes.edit', $note->id) }}" style="text-decoration:none">
-                        <div class="card mb-3" style="color:black">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ $note->title }}</h5>
-                                <p class="card-text">{{ Str::limit(strip_tags($note->body), 150) }}</p>
-                            </div>
-                        </div>
-                        </a>
+
+	<!-- CONTENT -->
+	<section id="content">
+		<!-- NAVBAR -->
+		<nav>
+			<i class='bx bx-menu' ></i>
+			<form action="#">
+				<div class="form-input">
+					<input type="search" placeholder="Search...">
+					<button type="submit" class="search-btn"><i class='bx bx-search' ></i></button>
+				</div>
+			</form>
+			<input type="checkbox" id="switch-mode" hidden>
+			<label for="switch-mode" class="switch-mode"></label>
+			<a href="#" class="profile">
+				<img src="{{ asset('assets/admin/img/people.png') }}">
+			</a>
+		</nav>
+		<!-- NAVBAR -->
+
+		<!-- MAIN -->
+		<main>
+			<div class="head-title">
+				<div class="left">
+					<h1>Dashboard</h1>
+					<ul class="breadcrumb">
+						<li>
+							<a href="{{ url('/admin') }}">Admin</a>
+						</li>
+						<li><i class='bx bx-chevron-right' ></i></li>
+						<li>
+							<a class="active" href="{{ url('/admin') }}">Dashboard</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+			<ul class="box-info">
+				<li data-aos="fade-left">
+                    <i class='bx bxs-news'></i>
+					<span class="text">
+						<h3>{{ $totalPosts }}</h3>
+						<p>News & Announcements</p>
+					</span>
+				</li>
+				<li>
+					<i class='bx bxs-group' ></i>
+					<span class="text">
+						<h3>2834</h3>
+						<p>Teams</p>
+					</span>
+				</li>
+				<li data-aos="fade-right">
+                    <i class='bx bx-news' ></i>
+					<span class="text">
+						<h3>$2543</h3>
+						<p>Article</p>
+					</span>
+				</li>
+			</ul>
+
+
+			<div class="table-data" data-aos="fade-up">
+				<div class="order">
+					<div class="head">
+						<h3>Recent News & Announcements</h3>
+					</div>
+					<table>
+						<thead>
+							<tr>
+								<th>Thumbnail</th>
+								<th>Creation Date</th>
+								<th>Category</th>
+							</tr>
+						</thead>
+						<tbody>
+                            @foreach($posts as $v_posts)
+							<tr>
+								<td>
+									<img src="{{ asset($v_posts->thumbnail) }}">
+								</td>
+								<td>{{ $v_posts->formatted_created_at }}</td>
+								<td>
+                                    <?php
+                                        if($v_posts->id_category == 1){
+                                    ?>
+                                        <span class="status completed">
+                                            News
+                                        </span>
+                                    <?php
+                                        }else{
+                                    ?>
+                                        <span class="status pending">
+                                            Announcements
+                                        </span>
+                                    <?php
+                                        }
+                                    ?>
+                                    
+                                </td>
+							</tr>
+                            @endforeach
+						</tbody>
+					</table>
+				</div>
+				<div class="todo">
+					<div class="head">
+						<h3>Task List</h3>
+					</div>
+					<ul class="todo-list">
+                        @foreach($task as $v_task)
+                            <li class="completed">
+                                <p>{{ $v_task->title }}</p>
+                            </li>
                         @endforeach
-                        <div class="pagination">
-                            @if ($notes->previousPageUrl())
-                            <a href="{{ $notes->previousPageUrl() }}" class="btn btn-primary">Previous</a>
-                            @endif
-                            @if ($notes->nextPageUrl())
-                            <a href="{{ $notes->nextPageUrl() }}" class="btn btn-primary">Next</a>
-                            @endif
-                        </div>
-                </div>
-            </div>
-            <div class="col-sm-4">
-                <div class="jumbotron bg-transparent"
-                    style=" border: 4px solid white; padding: 0.5rem; color:white; min-height: 80vh">
-                    <h5>Post Terbaru</h5>
-                    @foreach($latestPosts as $post)
-                    <div class="card mb-4">
-                        @if($post->thumbnail)
-                        <img src="{{ asset('storage/' . $post->thumbnail) }}" class="card-img-top" alt="{{ $post->title }}">
-                        @endif
-                        <a href="{{ route('posts.show', $post->slug) }}" style="text-decoration:none; color:black;">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ $post->title }}
-                                </h5>
-                                <p class="card-text">
-                                    <strong>Author:</strong> {{ $post->user->name }}<br>
-                                    <strong>Category:</strong> {{ $post->category->name }}<br>
-                                    <strong>Status:</strong> {{ ucfirst($post->status) }}
-                                </p>
-                            </div>
-                    </div>
-                    </a>
-                    @endforeach
-                </div>
-            </div>
-        </div>
-    </section>
+					</ul>
+				</div>
+			</div>
+		</main>
+		<!-- MAIN -->
+	</section>
+	<!-- CONTENT -->
+	
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+	<script src="{{ asset('assets/admin/script.js') }}"></script>
+
+    <script>
+
+        var loader = document.getElementById("preloader");
+
+        window.addEventListener("load", function(){
+            loader.style.display = "none";
+        })
+
+        AOS.init({
+            duration: 1500
+        });
+    </script>
 </body>
 </html>

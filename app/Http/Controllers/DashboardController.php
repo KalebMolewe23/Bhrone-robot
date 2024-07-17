@@ -13,14 +13,20 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        // Ambil 2 postingan terbaru
-        $latestPosts = Post::latest()->take(2)->with('user', 'category')->get();
-        $postCount = Post::count();
-        $userCount = User::count();
-        $noteCount = Note::count();
-        $notes = Note::paginate(5);
+        $posts = DB::table('posts')
+            ->select('thumbnail', 'id_category', DB::raw("DATE_FORMAT(created_at, '%d-%m-%Y') as formatted_created_at"))
+            ->orderBy('id', 'desc')
+            ->limit(5)
+            ->get();
 
-        return view('admin.dashboard', compact('latestPosts', 'postCount', 'userCount', 'noteCount', 'notes'));
+        $task = DB::table('notes')
+        ->orderBy('id', 'desc')
+        ->limit(5)
+        ->get();
+
+        $totalPosts = DB::table('posts')->count();
+
+        return view('admin.dashboard', compact('posts', 'task', 'totalPosts'));
     }
 
     public function cms()
