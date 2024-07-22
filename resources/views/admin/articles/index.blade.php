@@ -11,7 +11,7 @@
 	<!-- My CSS -->
 	<link rel="stylesheet" href="{{ asset('assets/admin/style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
-	<title>Task Admin - BRONE</title>
+	<title>Articles Admin - BRONE</title>
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -28,40 +28,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 
     <style>
-        .form-control {
-            display: block;
-            width: 70%;
-            padding: .375rem .75rem;
-            font-size: 1rem;
-            font-weight: 400;
-            line-height: 1.5;
-            color: var(--bs-body-color);
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
-            background-color: var(--bs-body-bg);
-            background-clip: padding-box;
-            border: 0.5px solid gray;
-            border-radius: 5px;
-            transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
-        }
-        .row {
-            --bs-gutter-x: 1.5rem;
-            --bs-gutter-y: 0;
-            display: flex;
-            flex-wrap: wrap;
-            margin-top: calc(-1* var(--bs-gutter-y));
-            margin-right: calc(-.5* var(--bs-gutter-x));
-            margin-left: calc(-.5* var(--bs-gutter-x));
-        }
-        .col-md-8 {
-            flex: 0 0 auto;
-            width: 66.66666667%;
-        }
-        .col-md-4 {
-            flex: 0 0 auto;
-            width: 33.33333333%;
-        }
         .btn {
             --bs-btn-padding-x: 0.75rem;
             --bs-btn-padding-y: 0.375rem;
@@ -209,13 +175,13 @@
 					<span class="text">Task</span>
 				</a>
 			</li>
-			<li class="active">
+			<li>
 				<a href="{{ url('/admin/posts') }}">
                     <i class='bx bxs-news'></i>
 					<span class="text">News & Announcements</span>
 				</a>
 			</li>
-			<li>
+			<li class="active">
 				<a href="{{ url('/admin/articles') }}">
                     <i class='bx bx-news' ></i>
 					<span class="text">Article</span>
@@ -266,14 +232,14 @@
         <main>
             <div class="head-title">
                 <div class="left">
-                    <h1>Edit News & Announcements</h1>
+                    <h1>Articles</h1>
                     <ul class="breadcrumb">
                         <li>
                             <a href="{{ url('/admin') }}">Admin</a>
                         </li>
                         <li><i class='bx bx-chevron-right' ></i></li>
                         <li>
-                            <a class="active" href="{{ url('/admin/posts') }}">Edit Post</a>
+                            <a class="active" href="{{ url('/admin/posts') }}">Article</a>
                         </li>
                     </ul>
                 </div>
@@ -282,61 +248,21 @@
             <div class="table-data" data-aos="fade-up">
                 <div class="order">
                     <div class="head">
-                        <h3>Edit Post</h3>
+                        <h3>Articles All Post</h3>
+                        <a href="{{ route('admin.articles.create') }}" class="btn btn-primary mb-3">+ Add Article</a>
                     </div>
-
-                    <form action="{{ route('admin.posts.update', $post->id) }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    @method('PUT')
-                        <div class="row">
-                            <div class="col-md-8">
-                                <div class="form-group">
-                                    @if($post->thumbnail)
-                                        <img src="{{ asset($post->thumbnail) }}" alt="{{ $post->title }}" class="img-thumbnail">
-                                    @else
-                                        <img src="https://t4.ftcdn.net/jpg/04/73/25/49/360_F_473254957_bxG9yf4ly7OBO5I0O5KABlN930GwaMQz.jpg" alt="Default Thumbnail" class="img-thumbnail">
-                                    @endif
-                                </div>
-                                <div class="form-group">
-                                    <label for="thumbnail">Thumbnail:</label>
-                                    <input type="file" class="form-control-file" id="thumbnail" name="thumbnail">
-                                </div><br>
-                                <div class="form-group">
-                                    <label for="title">Title:</label>
-                                    <input type="text" class="form-control" id="title" name="title" value="{{ old('title', $post->title) }}">
-                                </div><br><br>
-                                <div class="form-group">
-                                    <label for="thumbnail">Content:</label>
-                                    <textarea class="form-control" id="body" name="body">{{ old('body', $post->body) }}</textarea>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="id_category">Category:</label>
-                                    <select class="form-control" id="id_category" name="id_category">
-                                        @foreach($categories as $category)
-                                        <option value="{{ $category->id }}" {{ $category->id == $post->id_category ? 'selected' : '' }}>
-                                            {{ $category->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="status">Status:</label>
-                                    <select class="form-control" id="status" name="status">
-                                        <option value="draft" {{ $post->status == 'draft' ? 'selected' : '' }}>Draft</option>
-                                        <option value="published" {{ $post->status == 'published' ? 'selected' : '' }}>Published</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div style="text-align:right">
-                                <a class="btn btn-light btn-block" href="{{ route('admin.posts.index') }}">Kembali</a>
-                                <button type="submit" class="btn btn-primary btn-block">Create</button>
-                        </div>
-                    </form>
-
+                    <table id="article-table">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Thumbnail</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                    </table> 
                 </div>
             </div>
+
         </main>
     </section>
 
@@ -345,9 +271,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
 	<script src="{{ asset('assets/admin/script.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>
-    
+
     <script>
+
         var loader = document.getElementById("preloader");
 
         window.addEventListener("load", function(){
@@ -358,11 +284,63 @@
             duration: 1500
         });
 
-        ClassicEditor
-            .create( document.querySelector( '#body' ) )
-            .catch( error => {
-                console.error( error );
-            } );
+        $(document).ready(function() {
+            $('#article-table').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: "{{ route('articles.data') }}",
+                columns: [
+                    { data: 'title', name: 'title' },
+                    { 
+                        data: 'thumbnail',
+                        name: 'thumbnail',
+                        render: function(data) {
+                            var thumbnailPath = '{{ asset('') }}' + data;
+                            return '<img src="' + thumbnailPath + '" height="50px" />';
+                        }
+                    },
+                    { 
+                        data: 'id',
+                        render: function(data) {
+                            return '<a href="/admin/articles/' + data + '/edit" class="btn btn-primary btn-sm"><i class="bx bxs-edit"></i> Edit</a> ' +
+                           '<button class="btn btn-danger btn-sm" onclick="deletePost(' + data + ')"><i class="bx bxs-message-square-x"></i> Delete</button>';
+                        }
+                    }
+                ]
+            });
+        });
+
+        function editPost(id) {
+            window.location.href = '/edit/' + id;
+        }
+
+        function deletePost(id) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: 'You want to delete this data?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: '/admin/articles/' + id,
+                        type: 'DELETE',
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        success: function(response) {
+                            $('#article-table').DataTable().ajax.reload();
+                        },
+                        error: function(xhr) {
+                            console.error('Error deleting post:', xhr.responseText);
+                        }
+                    });
+                }
+            });
+        }
 
         document.getElementById('searchForm').addEventListener('submit', function(event) {
             event.preventDefault();
@@ -372,6 +350,8 @@
                 window.location.href = url;
             }
         });
+
     </script>
+
 </body>
 </html>

@@ -11,7 +11,7 @@
 	<!-- My CSS -->
 	<link rel="stylesheet" href="{{ asset('assets/admin/style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
-	<title>Task Admin - BRONE</title>
+	<title>Team Brone Admin - BRONE</title>
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -209,7 +209,7 @@
 					<span class="text">Task</span>
 				</a>
 			</li>
-			<li class="active">
+			<li>
 				<a href="{{ url('/admin/posts') }}">
                     <i class='bx bxs-news'></i>
 					<span class="text">News & Announcements</span>
@@ -221,7 +221,7 @@
 					<span class="text">Article</span>
 				</a>
 			</li>
-			<li>
+			<li class="active">
 				<a href="{{ url('/admin/teams') }}">
 					<i class='bx bxs-group' ></i>
 					<span class="text">Teams</span>
@@ -266,14 +266,14 @@
         <main>
             <div class="head-title">
                 <div class="left">
-                    <h1>Edit News & Announcements</h1>
+                    <h1>Create Team</h1>
                     <ul class="breadcrumb">
                         <li>
                             <a href="{{ url('/admin') }}">Admin</a>
                         </li>
                         <li><i class='bx bx-chevron-right' ></i></li>
                         <li>
-                            <a class="active" href="{{ url('/admin/posts') }}">Edit Post</a>
+                            <a class="active" href="{{ url('/admin/teams') }}">Team</a>
                         </li>
                     </ul>
                 </div>
@@ -282,55 +282,45 @@
             <div class="table-data" data-aos="fade-up">
                 <div class="order">
                     <div class="head">
-                        <h3>Edit Post</h3>
+                        <h3>Create Info Team</h3>
                     </div>
 
-                    <form action="{{ route('admin.posts.update', $post->id) }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    @method('PUT')
+                    <form id="post-form" action="{{ route('admin.teams.store') }}" method="POST" enctype="multipart/form-data">
                         <div class="row">
                             <div class="col-md-8">
+                                @csrf
                                 <div class="form-group">
-                                    @if($post->thumbnail)
-                                        <img src="{{ asset($post->thumbnail) }}" alt="{{ $post->title }}" class="img-thumbnail">
-                                    @else
-                                        <img src="https://t4.ftcdn.net/jpg/04/73/25/49/360_F_473254957_bxG9yf4ly7OBO5I0O5KABlN930GwaMQz.jpg" alt="Default Thumbnail" class="img-thumbnail">
-                                    @endif
-                                </div>
-                                <div class="form-group">
-                                    <label for="thumbnail">Thumbnail:</label>
+                                    <label for="thumbnail">Photo:</label>
                                     <input type="file" class="form-control-file" id="thumbnail" name="thumbnail">
                                 </div><br>
                                 <div class="form-group">
-                                    <label for="title">Title:</label>
-                                    <input type="text" class="form-control" id="title" name="title" value="{{ old('title', $post->title) }}">
+                                    <label for="title">Name:</label>
+                                    <input type="text" class="form-control" id="title" name="title" value="{{ old('title') }}">
                                 </div><br><br>
                                 <div class="form-group">
-                                    <label for="thumbnail">Content:</label>
-                                    <textarea class="form-control" id="body" name="body">{{ old('body', $post->body) }}</textarea>
+                                    <label for="thumbnail">Description:</label>
+                                    <textarea class="form-control" id="body" name="body">{{ old('body') }}</textarea>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="id_category">Category:</label>
-                                    <select class="form-control" id="id_category" name="id_category">
-                                        @foreach($categories as $category)
-                                        <option value="{{ $category->id }}" {{ $category->id == $post->id_category ? 'selected' : '' }}>
-                                            {{ $category->name }}</option>
-                                        @endforeach
+                                    <label for="roles">Roles:</label>
+                                    <select class="form-control" id="roles" name="roles">
+                                        <option value="lecturer">Lecturer</option>
+                                        <option value="student">Student</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="status">Status:</label>
                                     <select class="form-control" id="status" name="status">
-                                        <option value="draft" {{ $post->status == 'draft' ? 'selected' : '' }}>Draft</option>
-                                        <option value="published" {{ $post->status == 'published' ? 'selected' : '' }}>Published</option>
+                                        <option value="active">Active</option>
+                                        <option value="inactive">Inactive</option>
                                     </select>
                                 </div>
                             </div>
                         </div>
                         <div style="text-align:right">
-                                <a class="btn btn-light btn-block" href="{{ route('admin.posts.index') }}">Kembali</a>
+                                <a class="btn btn-light btn-block" href="{{ route('admin.teams.index') }}">Kembali</a>
                                 <button type="submit" class="btn btn-primary btn-block">Create</button>
                         </div>
                     </form>

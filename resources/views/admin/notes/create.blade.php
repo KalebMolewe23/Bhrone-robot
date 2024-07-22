@@ -232,14 +232,12 @@
 		<!-- NAVBAR -->
 		<nav>
             <i class='bx bx-menu' ></i>
-			<form action="#">
+			<form id="searchForm" method="GET">
 				<div class="form-input">
-					<input type="search" placeholder="Search...">
-					<button type="submit" class="search-btn"><i class='bx bx-search' ></i></button>
+					<input type="search" name="query" id="searchInput" placeholder="Search...">
+					<button type="submit" class="search-btn"><i class='bx bx-search'></i></button>
 				</div>
 			</form>
-			<input type="checkbox" id="switch-mode" hidden>
-			<label for="switch-mode" class="switch-mode"></label>
 			<a href="#" class="profile">
 				<img src="{{ asset('assets/admin/img/people.png') }}">
 			</a>
@@ -283,9 +281,10 @@
                             <div class="col-sm-6 mt-2">
                             </div>
                             <div style="text-align:right">
-                                <a class="btn btn-light btn-block" href="{{ route('admin.notes.index') }}">Back</a>
-                                <button type="submit" class="btn btn-primary btn-block">Create</button>
+                                <a class="btn btn-light btn-block" href="{{ route('admin.notes.index') }}"><i class='bx bx-arrow-back' ></i> Back</a>
+                                <button type="submit" class="btn btn-primary btn-block"><i class='bx bxs-save' ></i> Create</button>
                             </div>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -318,7 +317,15 @@
                 console.error( error );
             } );
 
-    
+        document.getElementById('searchForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var query = document.getElementById('searchInput').value.trim();
+            if (query.length > 0) {
+                var url = query.startsWith('posts') ? '/admin/search/posts?query=' + encodeURIComponent(query) : '/admin/search/articles?query=' + encodeURIComponent(query);
+                window.location.href = url;
+            }
+        });
+
     </script>
 </body>
 </html>

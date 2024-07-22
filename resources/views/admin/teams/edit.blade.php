@@ -11,7 +11,7 @@
 	<!-- My CSS -->
 	<link rel="stylesheet" href="{{ asset('assets/admin/style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
-	<title>Task Admin - BRONE</title>
+	<title>Edit Team Brone Admin - BRONE</title>
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -209,7 +209,7 @@
 					<span class="text">Task</span>
 				</a>
 			</li>
-			<li class="active">
+			<li>
 				<a href="{{ url('/admin/posts') }}">
                     <i class='bx bxs-news'></i>
 					<span class="text">News & Announcements</span>
@@ -221,7 +221,7 @@
 					<span class="text">Article</span>
 				</a>
 			</li>
-			<li>
+			<li class="active">
 				<a href="{{ url('/admin/teams') }}">
 					<i class='bx bxs-group' ></i>
 					<span class="text">Teams</span>
@@ -250,7 +250,7 @@
 		<!-- NAVBAR -->
 		<nav>
             <i class='bx bx-menu' ></i>
-			<form id="searchForm" method="GET">
+            <form id="searchForm" method="GET">
 				<div class="form-input">
 					<input type="search" name="query" id="searchInput" placeholder="Search...">
 					<button type="submit" class="search-btn"><i class='bx bx-search'></i></button>
@@ -266,14 +266,14 @@
         <main>
             <div class="head-title">
                 <div class="left">
-                    <h1>Edit News & Announcements</h1>
+                    <h1>Edit Team</h1>
                     <ul class="breadcrumb">
                         <li>
                             <a href="{{ url('/admin') }}">Admin</a>
                         </li>
                         <li><i class='bx bx-chevron-right' ></i></li>
                         <li>
-                            <a class="active" href="{{ url('/admin/posts') }}">Edit Post</a>
+                            <a class="active" href="{{ url('/admin/teams') }}">Edit Team</a>
                         </li>
                     </ul>
                 </div>
@@ -282,17 +282,17 @@
             <div class="table-data" data-aos="fade-up">
                 <div class="order">
                     <div class="head">
-                        <h3>Edit Post</h3>
+                        <h3>Team Brone</h3>
                     </div>
 
-                    <form action="{{ route('admin.posts.update', $post->id) }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('admin.teams.update', $post->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                         <div class="row">
                             <div class="col-md-8">
                                 <div class="form-group">
                                     @if($post->thumbnail)
-                                        <img src="{{ asset($post->thumbnail) }}" alt="{{ $post->title }}" class="img-thumbnail">
+                                        <img src="{{ asset($post->thumbnail) }}" alt="{{ $post->title }}" class="img-thumbnail" style="width:500px">
                                     @else
                                         <img src="https://t4.ftcdn.net/jpg/04/73/25/49/360_F_473254957_bxG9yf4ly7OBO5I0O5KABlN930GwaMQz.jpg" alt="Default Thumbnail" class="img-thumbnail">
                                     @endif
@@ -312,25 +312,23 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="id_category">Category:</label>
-                                    <select class="form-control" id="id_category" name="id_category">
-                                        @foreach($categories as $category)
-                                        <option value="{{ $category->id }}" {{ $category->id == $post->id_category ? 'selected' : '' }}>
-                                            {{ $category->name }}</option>
-                                        @endforeach
+                                    <label for="status">Roles:</label>
+                                    <select class="form-control" id="roles" name="roles">
+                                        <option value="lecture" {{ $post->roles == 'lecture' ? 'selected' : '' }}>Lecturer</option>
+                                        <option value="student" {{ $post->roles == 'inactive' ? 'selected' : '' }}>Student</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="status">Status:</label>
                                     <select class="form-control" id="status" name="status">
-                                        <option value="draft" {{ $post->status == 'draft' ? 'selected' : '' }}>Draft</option>
-                                        <option value="published" {{ $post->status == 'published' ? 'selected' : '' }}>Published</option>
+                                        <option value="active" {{ $post->status == 'active' ? 'selected' : '' }}>Active</option>
+                                        <option value="inactive" {{ $post->status == 'inactive' ? 'selected' : '' }}>Inactive</option>
                                     </select>
                                 </div>
                             </div>
                         </div>
                         <div style="text-align:right">
-                                <a class="btn btn-light btn-block" href="{{ route('admin.posts.index') }}">Kembali</a>
+                                <a class="btn btn-light btn-block" href="{{ route('admin.articles.index') }}">Kembali</a>
                                 <button type="submit" class="btn btn-primary btn-block">Create</button>
                         </div>
                     </form>

@@ -11,7 +11,7 @@
 	<!-- My CSS -->
 	<link rel="stylesheet" href="{{ asset('assets/admin/style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
-	<title>Task Admin - BRONE</title>
+	<title>Postingan Admin - BRONE</title>
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -28,40 +28,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 
     <style>
-        .form-control {
-            display: block;
-            width: 70%;
-            padding: .375rem .75rem;
-            font-size: 1rem;
-            font-weight: 400;
-            line-height: 1.5;
-            color: var(--bs-body-color);
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
-            background-color: var(--bs-body-bg);
-            background-clip: padding-box;
-            border: 0.5px solid gray;
-            border-radius: 5px;
-            transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
-        }
-        .row {
-            --bs-gutter-x: 1.5rem;
-            --bs-gutter-y: 0;
-            display: flex;
-            flex-wrap: wrap;
-            margin-top: calc(-1* var(--bs-gutter-y));
-            margin-right: calc(-.5* var(--bs-gutter-x));
-            margin-left: calc(-.5* var(--bs-gutter-x));
-        }
-        .col-md-8 {
-            flex: 0 0 auto;
-            width: 66.66666667%;
-        }
-        .col-md-4 {
-            flex: 0 0 auto;
-            width: 33.33333333%;
-        }
         .btn {
             --bs-btn-padding-x: 0.75rem;
             --bs-btn-padding-y: 0.375rem;
@@ -209,7 +175,7 @@
 					<span class="text">Task</span>
 				</a>
 			</li>
-			<li class="active">
+			<li>
 				<a href="{{ url('/admin/posts') }}">
                     <i class='bx bxs-news'></i>
 					<span class="text">News & Announcements</span>
@@ -250,10 +216,10 @@
 		<!-- NAVBAR -->
 		<nav>
             <i class='bx bx-menu' ></i>
-			<form id="searchForm" method="GET">
+			<form action="#">
 				<div class="form-input">
-					<input type="search" name="query" id="searchInput" placeholder="Search...">
-					<button type="submit" class="search-btn"><i class='bx bx-search'></i></button>
+					<input type="search" placeholder="Search...">
+					<button type="submit" class="search-btn"><i class='bx bx-search' ></i></button>
 				</div>
 			</form>
 			<a href="#" class="profile">
@@ -266,14 +232,14 @@
         <main>
             <div class="head-title">
                 <div class="left">
-                    <h1>Edit News & Announcements</h1>
+                    <h1>Search</h1>
                     <ul class="breadcrumb">
                         <li>
                             <a href="{{ url('/admin') }}">Admin</a>
                         </li>
                         <li><i class='bx bx-chevron-right' ></i></li>
                         <li>
-                            <a class="active" href="{{ url('/admin/posts') }}">Edit Post</a>
+                            <a class="active" href="{{ url('/admin/posts') }}">Search</a>
                         </li>
                     </ul>
                 </div>
@@ -281,63 +247,65 @@
 
             <div class="table-data" data-aos="fade-up">
                 <div class="order">
-                    <div class="head">
-                        <h3>Edit Post</h3>
+                    <div id="articlesSection" style="display: none;">
+                        <div class="head">
+                            <h3>Search Info Article</h3>
+                        </div>
+                        <table id="article-table">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Thumbnail</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            @foreach ($results->where('type', 'article') as $result)
+                                <tr>
+                                    <td>{{ $result->title }}</td>
+                                    <td><img src="{{ asset($result->thumbnail) }}" height="50px" /></td>
+                                    <td>
+                                        <a href="{{ route('admin.articles.edit', ['id' => $result->id]) }}" class="btn btn-primary"><i class="bx bxs-edit"></i> Edit</a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
                     </div>
 
-                    <form action="{{ route('admin.posts.update', $post->id) }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    @method('PUT')
-                        <div class="row">
-                            <div class="col-md-8">
-                                <div class="form-group">
-                                    @if($post->thumbnail)
-                                        <img src="{{ asset($post->thumbnail) }}" alt="{{ $post->title }}" class="img-thumbnail">
-                                    @else
-                                        <img src="https://t4.ftcdn.net/jpg/04/73/25/49/360_F_473254957_bxG9yf4ly7OBO5I0O5KABlN930GwaMQz.jpg" alt="Default Thumbnail" class="img-thumbnail">
-                                    @endif
-                                </div>
-                                <div class="form-group">
-                                    <label for="thumbnail">Thumbnail:</label>
-                                    <input type="file" class="form-control-file" id="thumbnail" name="thumbnail">
-                                </div><br>
-                                <div class="form-group">
-                                    <label for="title">Title:</label>
-                                    <input type="text" class="form-control" id="title" name="title" value="{{ old('title', $post->title) }}">
-                                </div><br><br>
-                                <div class="form-group">
-                                    <label for="thumbnail">Content:</label>
-                                    <textarea class="form-control" id="body" name="body">{{ old('body', $post->body) }}</textarea>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="id_category">Category:</label>
-                                    <select class="form-control" id="id_category" name="id_category">
-                                        @foreach($categories as $category)
-                                        <option value="{{ $category->id }}" {{ $category->id == $post->id_category ? 'selected' : '' }}>
-                                            {{ $category->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="status">Status:</label>
-                                    <select class="form-control" id="status" name="status">
-                                        <option value="draft" {{ $post->status == 'draft' ? 'selected' : '' }}>Draft</option>
-                                        <option value="published" {{ $post->status == 'published' ? 'selected' : '' }}>Published</option>
-                                    </select>
-                                </div>
-                            </div>
+                    <div id="postsSection" style="display: none;">
+                        <div class="head">
+                            <h3>Search Info News & Announcements</h3>
                         </div>
-                        <div style="text-align:right">
-                                <a class="btn btn-light btn-block" href="{{ route('admin.posts.index') }}">Kembali</a>
-                                <button type="submit" class="btn btn-primary btn-block">Create</button>
-                        </div>
-                    </form>
-
+                        <table id="article-table">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Category</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            @foreach ($results->where('type', 'post') as $result)
+                                <tr>
+                                    <td>{{ $result->title }}</td>
+                                    <?php if($result->id_category == 1){ ?>
+                                        <td><span class="status completed"> News</span></td>
+                                    <?php }else{ ?>
+                                        <td><span class="status pending"> Announcement</span></td>
+                                    <?php } ?>
+                                    <td>
+                                        <a href="{{ route('admin.posts.edit', ['id' => $result->id]) }}" class="btn btn-primary"><i class="bx bxs-edit"></i> Edit</a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </main>
+
     </section>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -345,9 +313,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
 	<script src="{{ asset('assets/admin/script.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>
-    
     <script>
+
         var loader = document.getElementById("preloader");
 
         window.addEventListener("load", function(){
@@ -358,20 +325,19 @@
             duration: 1500
         });
 
-        ClassicEditor
-            .create( document.querySelector( '#body' ) )
-            .catch( error => {
-                console.error( error );
-            } );
+        document.addEventListener('DOMContentLoaded', function() {
+            var query = "{{ $query }}";
+            var results = @json($results);
 
-        document.getElementById('searchForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            var query = document.getElementById('searchInput').value.trim();
-            if (query.length > 0) {
-                var url = query.startsWith('posts') ? '/admin/search/posts?query=' + encodeURIComponent(query) : '/admin/search/articles?query=' + encodeURIComponent(query);
-                window.location.href = url;
+            if (results.some(result => result.type === 'article')) {
+                document.getElementById('articlesSection').style.display = 'block';
+            }
+
+            if (results.some(result => result.type === 'post')) {
+                document.getElementById('postsSection').style.display = 'block';
             }
         });
     </script>
 </body>
+
 </html>

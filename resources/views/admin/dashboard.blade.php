@@ -138,14 +138,12 @@
 		<!-- NAVBAR -->
 		<nav>
 			<i class='bx bx-menu' ></i>
-			<form action="#">
+			<form id="searchForm" method="GET">
 				<div class="form-input">
-					<input type="search" placeholder="Search...">
-					<button type="submit" class="search-btn"><i class='bx bx-search' ></i></button>
+					<input type="search" name="query" id="searchInput" placeholder="Search...">
+					<button type="submit" class="search-btn"><i class='bx bx-search'></i></button>
 				</div>
 			</form>
-			<input type="checkbox" id="switch-mode" hidden>
-			<label for="switch-mode" class="switch-mode"></label>
 			<a href="#" class="profile">
 				<img src="{{ asset('assets/admin/img/people.png') }}">
 			</a>
@@ -180,14 +178,14 @@
 				<li>
 					<i class='bx bxs-group' ></i>
 					<span class="text">
-						<h3>2834</h3>
+						<h3>{{ $totalTeams }}</h3>
 						<p>Teams</p>
 					</span>
 				</li>
 				<li data-aos="fade-right">
                     <i class='bx bx-news' ></i>
 					<span class="text">
-						<h3>$2543</h3>
+						<h3>{{ $totalArticles }}</h3>
 						<p>Article</p>
 					</span>
 				</li>
@@ -268,6 +266,15 @@
 
         AOS.init({
             duration: 1500
+        });
+
+		document.getElementById('searchForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var query = document.getElementById('searchInput').value.trim();
+            if (query.length > 0) {
+                var url = query.startsWith('posts') ? '/admin/search/posts?query=' + encodeURIComponent(query) : '/admin/search/articles?query=' + encodeURIComponent(query);
+                window.location.href = url;
+            }
         });
     </script>
 </body>

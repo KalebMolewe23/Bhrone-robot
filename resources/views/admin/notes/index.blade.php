@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="icon" href="{{ asset('assets/image/icon.png') }}" type="image/x-icon">
@@ -216,14 +216,12 @@
 		<!-- NAVBAR -->
 		<nav>
             <i class='bx bx-menu' ></i>
-			<form action="#">
+			<form id="searchForm" method="GET">
 				<div class="form-input">
-					<input type="search" placeholder="Search...">
-					<button type="submit" class="search-btn"><i class='bx bx-search' ></i></button>
+					<input type="search" name="query" id="searchInput" placeholder="Search...">
+					<button type="submit" class="search-btn"><i class='bx bx-search'></i></button>
 				</div>
 			</form>
-			<input type="checkbox" id="switch-mode" hidden>
-			<label for="switch-mode" class="switch-mode"></label>
 			<a href="#" class="profile">
 				<img src="{{ asset('assets/admin/img/people.png') }}">
 			</a>
@@ -253,17 +251,15 @@
                         <h3>Task All Information</h3>
                         <a href="{{ route('admin.notes.create') }}" class="btn btn-primary mb-3">+ Add Task</a>
                     </div>
-                    <div class="table-responsive">
-                        <table id="article-table" class="display">
-                            <thead>
-                                <tr>
-                                    <th>Title</th>
-                                    <th>Created At</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                        </table>
-                    </div>
+                    <table id="article-table">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Created At</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                    </table>
                 </div>
             </div>
 
@@ -306,8 +302,8 @@
                     { 
                         data: 'id',
                         render: function(data) {
-                            return '<a href="/admin/notes/' + data + '/edit" class="btn btn-primary btn-sm">Edit</a> ' +
-                           '<button class="btn btn-danger btn-sm" onclick="deletePost(' + data + ')">Delete</button>';
+                            return '<a href="/admin/notes/' + data + '/edit" class="btn btn-primary btn-sm"><i class="bx bxs-edit"></i> Edit</a> ' +
+                           '<button class="btn btn-danger btn-sm" onclick="deletePost(' + data + ')"><i class="bx bxs-message-square-x"></i> Delete</button>';
                         }
                     }
                 ]
@@ -347,6 +343,15 @@
                 }
             });
         }
+
+    document.getElementById('searchForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        var query = document.getElementById('searchInput').value.trim();
+        if (query.length > 0) {
+            var url = query.startsWith('posts') ? '/admin/search/posts?query=' + encodeURIComponent(query) : '/admin/search/articles?query=' + encodeURIComponent(query);
+            window.location.href = url;
+        }
+    });
 
 
     </script>

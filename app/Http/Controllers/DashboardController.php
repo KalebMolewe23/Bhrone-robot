@@ -25,8 +25,10 @@ class DashboardController extends Controller
         ->get();
 
         $totalPosts = DB::table('posts')->count();
+        $totalTeams = DB::table('teams')->count();
+        $totalArticles = DB::table('articles')->count();
 
-        return view('admin.dashboard', compact('posts', 'task', 'totalPosts'));
+        return view('admin.dashboard', compact('posts', 'task', 'totalPosts', 'totalTeams', 'totalArticles'));
     }
 
     public function cms()
